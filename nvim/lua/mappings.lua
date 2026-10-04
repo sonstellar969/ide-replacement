@@ -16,8 +16,8 @@ map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Open buffers" })
 map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics: all buffers" })
 
 -- DAP mappings are defined here too so they win over NvChad's default <leader>b mapping.
-local dap = require("dap")
-local dapui = require("dapui")
+local dap = require "dap"
+local dapui = require "dapui"
 map("n", "<leader>b", dap.toggle_breakpoint, { desc = "Debug: toggle breakpoint" })
 map("n", "<leader>du", dapui.toggle, { desc = "Debug: toggle UI" })
 

@@ -3,7 +3,7 @@ local M = {}
 function M.setup()
   require("nvchad.configs.lspconfig").defaults()
 
-  if vim.fn.exists(":LspInfo") ~= 2 then
+  if vim.fn.exists ":LspInfo" ~= 2 then
     vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", {
       desc = "Show active and configured language servers",
     })
@@ -28,21 +28,30 @@ function M.setup()
     vim.lsp.config(server, common)
   end
 
-  vim.lsp.config("clangd", vim.tbl_deep_extend("force", common, {
-    cmd = { "clangd", "--background-index", "--clang-tidy" },
-  }))
-  vim.lsp.config("rust_analyzer", vim.tbl_deep_extend("force", common, {
-    settings = { ["rust-analyzer"] = { cargo = { allFeatures = true } } },
-  }))
-  vim.lsp.config("lua_ls", vim.tbl_deep_extend("force", common, {
-    settings = {
-      Lua = {
-        diagnostics = { globals = { "vim" } },
-        workspace = { checkThirdParty = false },
-        telemetry = { enable = false },
+  vim.lsp.config(
+    "clangd",
+    vim.tbl_deep_extend("force", common, {
+      cmd = { "clangd", "--background-index", "--clang-tidy" },
+    })
+  )
+  vim.lsp.config(
+    "rust_analyzer",
+    vim.tbl_deep_extend("force", common, {
+      settings = { ["rust-analyzer"] = { cargo = { allFeatures = true } } },
+    })
+  )
+  vim.lsp.config(
+    "lua_ls",
+    vim.tbl_deep_extend("force", common, {
+      settings = {
+        Lua = {
+          diagnostics = { globals = { "vim" } },
+          workspace = { checkThirdParty = false },
+          telemetry = { enable = false },
+        },
       },
-    },
-  }))
+    })
+  )
 
   vim.lsp.enable(servers)
 end

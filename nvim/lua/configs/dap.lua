@@ -1,11 +1,11 @@
 local M = {}
 
 function M.setup()
-  local dap = require("dap")
-  local dapui = require("dapui")
+  local dap = require "dap"
+  local dapui = require "dapui"
 
   dapui.setup()
-  require("mason-nvim-dap").setup({
+  require("mason-nvim-dap").setup {
     ensure_installed = { "codelldb" },
     automatic_installation = true,
     handlers = {
@@ -13,12 +13,20 @@ function M.setup()
         require("mason-nvim-dap").default_setup(config)
       end,
     },
-  })
+  }
 
-  dap.listeners.before.attach.dapui_config = function() dapui.open() end
-  dap.listeners.before.launch.dapui_config = function() dapui.open() end
-  dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
-  dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
+  dap.listeners.before.attach.dapui_config = function()
+    dapui.open()
+  end
+  dap.listeners.before.launch.dapui_config = function()
+    dapui.open()
+  end
+  dap.listeners.before.event_terminated.dapui_config = function()
+    dapui.close()
+  end
+  dap.listeners.before.event_exited.dapui_config = function()
+    dapui.close()
+  end
 
   dap.configurations.cpp = {
     {
@@ -43,8 +51,6 @@ function M.setup()
   vim.keymap.set("n", "<F5>", start_debugging, { desc = "Debug: start/continue" })
   vim.keymap.set("n", "<F10>", dap.step_over, { desc = "Debug: step over" })
   vim.keymap.set("n", "<F11>", dap.step_into, { desc = "Debug: step into" })
-  vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Debug: toggle breakpoint" })
-  vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Debug: toggle UI" })
 end
 
 return M

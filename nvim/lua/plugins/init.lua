@@ -6,9 +6,10 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    lazy = false,
     dependencies = { "mason.nvim", "neovim/nvim-lspconfig" },
     config = function()
-      require("mason-lspconfig").setup({
+      require("mason-lspconfig").setup {
         ensure_installed = {
           "clangd",
           "pyright",
@@ -16,7 +17,7 @@ return {
           "ts_ls",
           "lua_ls",
         },
-      })
+      }
     end,
   },
   {
@@ -97,10 +98,18 @@ return {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     lazy = false,
-    build = ":TSUpdate",
+    build = ":TSUpdate | TSInstallAll",
     opts = {
       ensure_installed = {
-        "c", "cpp", "python", "rust", "javascript", "typescript", "lua", "vim", "vimdoc",
+        "c",
+        "cpp",
+        "python",
+        "rust",
+        "javascript",
+        "typescript",
+        "lua",
+        "vim",
+        "vimdoc",
       },
     },
   },

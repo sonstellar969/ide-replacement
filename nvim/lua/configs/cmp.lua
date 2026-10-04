@@ -1,16 +1,16 @@
 local M = {}
 
 function M.setup()
-  local cmp = require("cmp")
-  local luasnip = require("luasnip")
+  local cmp = require "cmp"
+  local luasnip = require "luasnip"
 
-  cmp.setup({
+  cmp.setup {
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
       end,
     },
-    mapping = cmp.mapping.preset.insert({
+    mapping = cmp.mapping.preset.insert {
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -29,16 +29,16 @@ function M.setup()
           fallback()
         end
       end, { "i", "s" }),
-      ["<CR>"] = cmp.mapping.confirm({ select = true }),
+      ["<CR>"] = cmp.mapping.confirm { select = true },
       ["<C-Space>"] = cmp.mapping.complete(),
-    }),
+    },
     sources = {
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "buffer" },
       { name = "path" },
     },
-  })
+  }
 end
 
 return M
