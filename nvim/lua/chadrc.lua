@@ -28,15 +28,15 @@ M.base46 = {
     NvimTreeRootFolder = { fg = "#ffffff", bold = true },
 
     -- Vertical explorer/editor and horizontal terminal separators.
-    WinSeparator = { fg = "#596579", bg = "NONE" },
-    VertSplit = { fg = "#596579", bg = "NONE" },
-    NvimTreeWinSeparator = { fg = "#596579", bg = "NONE" },
+    WinSeparator = { fg = "#0b0f15", bg = "NONE" },
+    VertSplit = { fg = "#0b0f15", bg = "NONE" },
+    NvimTreeWinSeparator = { fg = "#0b0f15", bg = "NONE" },
     StatusLine = { fg = "#e6eaf2", bg = "#2a303b" },
     StatusLineNC = { fg = "#aeb8c7", bg = "#202631" },
 
     -- Borders used by floating windows such as Telescope and DAP UI.
-    FloatBorder = { fg = "#596579", bg = "#202631" },
-    TelescopeBorder = { fg = "#596579", bg = "#202631" },
+    FloatBorder = { fg = "#0b0f15", bg = "#202631" },
+    TelescopeBorder = { fg = "#0b0f15", bg = "#202631" },
   },
 }
 

@@ -134,6 +134,14 @@ return {
       direction = "horizontal",
       close_on_exit = false,
       shade_terminals = false,
+      -- Give the terminal its own darker surface and a clearly visible divider.
+      highlights = {
+        Normal = { guifg = "#e6eaf2", guibg = "#141920" },
+        NormalFloat = { guifg = "#e6eaf2", guibg = "#141920" },
+        WinSeparator = { guifg = "#070a0e", guibg = "#070a0e" },
+        StatusLine = { guifg = "#ffffff", guibg = "#070a0e" },
+        StatusLineNC = { guifg = "#c8d0dc", guibg = "#0d1117" },
+      },
     },
   },
 }
