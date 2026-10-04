@@ -8,19 +8,35 @@ local M = {}
 M.base46 = {
   theme = "onedark",
 
-  -- Keep panels visually separated without making the editor bright.
+  -- Keep the interface readable while preserving a dark workspace.
   hl_override = {
+    -- Editor text, background, comments, and line numbers.
+    Normal = { fg = "#e6eaf2", bg = "#1c2129" },
+    NormalFloat = { fg = "#e6eaf2", bg = "#202631" },
+    Comment = { fg = "#8f9baa", italic = true },
+    LineNr = { fg = "#7f8c9f" },
+    CursorLine = { bg = "#242b35" },
+    CursorLineNr = { fg = "#e6eaf2", bold = true },
+    NonText = { fg = "#596579" },
+
     -- The current file/folder in nvim-tree.
-    NvimTreeCursorLine = { bg = "#11151c", fg = "#d8dee9" },
+    NvimTreeNormal = { fg = "#dfe5ee", bg = "#1c2129" },
+    NvimTreeNormalNC = { fg = "#c8d0dc", bg = "#1c2129" },
+    NvimTreeCursorLine = { bg = "#303947", fg = "#ffffff", bold = true },
+    NvimTreeFolderName = { fg = "#d6deea" },
+    NvimTreeOpenedFolderName = { fg = "#ffffff", bold = true },
+    NvimTreeRootFolder = { fg = "#ffffff", bold = true },
 
     -- Vertical explorer/editor and horizontal terminal separators.
-    WinSeparator = { fg = "#0b0e12", bg = "NONE" },
-    VertSplit = { fg = "#0b0e12", bg = "NONE" },
-    NvimTreeWinSeparator = { fg = "#0b0e12", bg = "NONE" },
+    WinSeparator = { fg = "#596579", bg = "NONE" },
+    VertSplit = { fg = "#596579", bg = "NONE" },
+    NvimTreeWinSeparator = { fg = "#596579", bg = "NONE" },
+    StatusLine = { fg = "#e6eaf2", bg = "#2a303b" },
+    StatusLineNC = { fg = "#aeb8c7", bg = "#202631" },
 
     -- Borders used by floating windows such as Telescope and DAP UI.
-    FloatBorder = { fg = "#0b0e12", bg = "#1e222a" },
-    TelescopeBorder = { fg = "#0b0e12", bg = "#1e222a" },
+    FloatBorder = { fg = "#596579", bg = "#202631" },
+    TelescopeBorder = { fg = "#596579", bg = "#202631" },
   },
 }
 
