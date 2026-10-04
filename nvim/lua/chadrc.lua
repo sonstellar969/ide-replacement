@@ -8,10 +8,19 @@ local M = {}
 M.base46 = {
   theme = "onedark",
 
-  -- hl_override = {
-  -- 	Comment = { italic = true },
-  -- 	["@comment"] = { italic = true },
-  -- },
+  -- Keep panels visually separated without making the editor bright.
+  hl_override = {
+    -- The current file/folder in nvim-tree.
+    NvimTreeCursorLine = { bg = "#252b35" },
+
+    -- Vertical explorer/editor and horizontal terminal separators.
+    WinSeparator = { fg = "#3b4252", bg = "NONE" },
+    VertSplit = { fg = "#3b4252", bg = "NONE" },
+
+    -- Borders used by floating windows such as Telescope and DAP UI.
+    FloatBorder = { fg = "#3b4252", bg = "#1e222a" },
+    TelescopeBorder = { fg = "#3b4252", bg = "#1e222a" },
+  },
 }
 
 -- M.nvdash = { load_on_startup = true }
