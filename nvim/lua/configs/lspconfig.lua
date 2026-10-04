@@ -3,6 +3,12 @@ local M = {}
 function M.setup()
   require("nvchad.configs.lspconfig").defaults()
 
+  if vim.fn.exists(":LspInfo") ~= 2 then
+    vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", {
+      desc = "Show active and configured language servers",
+    })
+  end
+
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
   local on_attach = function(_, bufnr)
     local opts = { buffer = bufnr, silent = true }
