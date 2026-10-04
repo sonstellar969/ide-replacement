@@ -1,8 +1,8 @@
 return {
   formatters_by_ft = {
-    c = { "clang_format" },
-    cpp = { "clang_format" },
-    objc = { "clang_format" },
+    c = { "clang-format" },
+    cpp = { "clang-format" },
+    objc = { "clang-format" },
     javascript = { "prettier" },
     javascriptreact = { "prettier" },
     typescript = { "prettier" },
@@ -11,7 +11,7 @@ return {
     lua = { "stylua" },
   },
   format_on_save = {
-    timeout_ms = 500,
+    timeout_ms = 3000,
     lsp_format = "fallback",
   },
 }
