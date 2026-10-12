@@ -14,6 +14,20 @@ An NvChad-based terminal IDE configuration for C and C++, with support for Pytho
 - Tree-sitter syntax highlighting
 - Gitsigns gutter markers
 
+## What the setup looks like
+
+The screenshot below shows the intended day-to-day layout:
+
+![Neovim terminal IDE layout](docs/images/nvim-ide-overview.png)
+
+- The left sidebar is the project file explorer.
+- The upper editor area contains multiple files and splits, so code and notes can be viewed together.
+- The bottom panel is the integrated terminal used for compiling and running programs.
+- The C++ buffer receives syntax highlighting, completion, clangd diagnostics, and navigation.
+- The terminal shows both failed and successful compile commands, warnings, program input, and output.
+
+The terminal prompt in the screenshot is inside the project root. That matters because relative paths such as `src/ch07/ch7-03.cpp` are resolved from the current working directory.
+
 ## Requirements
 
 macOS with Neovim 0.10 or newer is recommended. Install the command-line tools and external programs used by the configuration:
