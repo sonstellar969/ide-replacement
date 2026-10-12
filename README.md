@@ -30,34 +30,111 @@ The terminal prompt in the screenshot is inside the project root. That matters b
 
 ## Requirements
 
-macOS with Neovim 0.10 or newer is recommended. Install the command-line tools and external programs used by the configuration:
+Neovim 0.10 or newer is required. The configuration is intended for macOS, Windows, and Linux. In addition to Neovim, install Git, ripgrep, Node.js, Python, Rust, and a native C/C++ toolchain. Mason installs the language servers, debugger adapter, and formatters after Neovim starts.
+
+### macOS
 
 ```sh
 xcode-select --install
 brew install git ripgrep node python rust
 ```
 
-## Installation
+Xcode Command Line Tools provide `clang` and `clang++`. Homebrew is available from [brew.sh](https://brew.sh/).
 
-Back up an existing configuration before installing:
+### Windows
 
-```sh
-mv ~/.config/nvim ~/.config/nvim.backup
+PowerShell and Windows Terminal are supported. Install the base tools with `winget`:
+
+```powershell
+winget install Neovim.Neovim Git.Git BurntSushi.ripgrep OpenJS.NodeJS Python.Python Rustlang.Rustup LLVM.LLVM
 ```
 
-Clone this repository and install the configuration:
+If a package ID changes, find its current ID first:
+
+```powershell
+winget search neovim
+winget search llvm
+```
+
+LLVM provides `clang` and `clang++` for C/C++ compilation. Visual Studio Build Tools with the **Desktop development with C++** workload is an alternative compiler toolchain. Restart Windows Terminal after installation so the updated `PATH` is loaded.
+
+### Linux
+
+Ubuntu or Debian:
+
+```sh
+sudo apt update
+sudo apt install -y git ripgrep build-essential clang lldb nodejs npm python3 python3-pip curl
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Fedora:
+
+```sh
+sudo dnf install -y git ripgrep gcc-c++ clang lldb nodejs npm python3 python3-pip curl
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Arch Linux:
+
+```sh
+sudo pacman -Syu --needed git ripgrep base-devel clang lldb nodejs npm python python-pip rust
+```
+
+openSUSE:
+
+```sh
+sudo zypper install git ripgrep gcc-c++ clang lldb nodejs npm python3 python3-pip rust cargo
+```
+
+After installing Rust with `rustup`, restart the shell or load its environment:
+
+```sh
+source "$HOME/.cargo/env"
+```
+
+## Installation
+
+Back up an existing configuration before installing. Use the command for your operating system.
+
+### macOS and Linux
+
+```sh
+if [ -d "$HOME/.config/nvim" ]; then
+  mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup"
+fi
+```
+
+Clone the repository and install the configuration:
 
 ```sh
 git clone https://github.com/sonstellar969/ide-replacement.git ~/ide-replacement
+mkdir -p ~/.config
 cp -R ~/ide-replacement/nvim ~/.config/nvim
 nvim
 ```
+
+### Windows PowerShell
+
+```powershell
+if (Test-Path "$env:LOCALAPPDATA\nvim") {
+  Rename-Item "$env:LOCALAPPDATA\nvim" "$env:LOCALAPPDATA\nvim.backup"
+}
+
+git clone https://github.com/sonstellar969/ide-replacement.git "$HOME\ide-replacement"
+Copy-Item "$HOME\ide-replacement\nvim" "$env:LOCALAPPDATA\nvim" -Recurse -Force
+nvim
+```
+
+Neovim looks for its configuration in `~/.config/nvim` on macOS/Linux and in `%LOCALAPPDATA%\nvim` on Windows.
 
 On the first launch, allow lazy.nvim to install plugins. Then restart Neovim and install the language servers, debugger, and formatters:
 
 ```vim
 :MasonInstall clangd pyright rust-analyzer typescript-language-server lua-language-server codelldb clang-format prettier black stylua
 ```
+
+On Windows, the Mason package names are the same. The native compiler (`clang++`, `g++`, or `cl`) is separate from Mason and must be installed through LLVM, Visual Studio Build Tools, or your Linux distribution packages.
 
 Install or update Tree-sitter parsers:
 
@@ -126,7 +203,14 @@ Or use one command:
 clang++ -std=c++20 -g -Wall -Wextra main.cpp -o main && ./main
 ```
 
-The `-g` flag includes debug information for codelldb. To debug, compile the executable, set a breakpoint with `Space b`, and press `F5`. If prompted for the executable, enter `./main`.
+On Windows PowerShell, the executable normally has an `.exe` suffix:
+
+```powershell
+clang++ -std=c++20 -g -Wall -Wextra main.cpp -o main.exe
+.\main.exe
+```
+
+The `-g` flag includes debug information for codelldb. To debug, compile the executable, set a breakpoint with `Space b`, and press `F5`. If prompted for the executable, enter `./main` on macOS/Linux or `./main.exe` on Windows.
 
 ### clangd project flags
 
@@ -183,18 +267,56 @@ Use these commands when needed:
 :LspInfo         " Inspect the language server for the current buffer
 ```
 
-Update Homebrew tools from the macOS terminal:
+Update tools on macOS:
 
 ```sh
 brew update
 brew upgrade
 ```
 
+Update tools on Windows PowerShell:
+
+```powershell
+winget upgrade --all
+```
+
+Update tools on Ubuntu/Debian:
+
+```sh
+sudo apt update
+sudo apt upgrade
+```
+
+Update tools on Fedora:
+
+```sh
+sudo dnf upgrade
+```
+
+Update tools on Arch Linux:
+
+```sh
+sudo pacman -Syu
+```
+
+Update tools on openSUSE:
+
+```sh
+sudo zypper update
+```
+
 ## Restore the previous configuration
 
-If the migration needs to be reverted:
+macOS/Linux:
 
 ```sh
 mv ~/.config/nvim ~/.config/nvim-nvchad
 mv ~/.config/nvim.backup ~/.config/nvim
+```
+
+Windows PowerShell:
+
+```powershell
+Rename-Item "$env:LOCALAPPDATA\nvim" "$env:LOCALAPPDATA\nvim-nvchad"
+Rename-Item "$env:LOCALAPPDATA\nvim.backup" "$env:LOCALAPPDATA\nvim"
 ```
